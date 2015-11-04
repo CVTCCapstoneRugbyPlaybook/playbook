@@ -23,11 +23,25 @@
   color: #FFFFFF;
 }
 
+html {
+  background: transparent url(../images/background_img_turf.jpg) repeat 0 0;
+  height: 100%;
+}
+
+body {
+	background: #6D9125; /*transparent url(../images/bgTop.png) no-repeat center top; */
+  opacity: .9;
+	height: 100%;
+	width: 960px;
+	margin: 2px auto;
+	font-size: 13px;
+}
+
 ul {
 	list-style-type: none;
 }
 
-#nav{
+#nav {
   z-index: 20;
   position: relative;
   top: 0;
@@ -46,19 +60,21 @@ ul {
   display: inline;
 }
 
-#nav li a{
+#nav li a {
   position: relative;
   float: left;
   display: block;
   padding: 10px 20px;
-  color: black;}
+  color: black;
+}
   
-#nav li a:hover{
+#nav li a:hover {
   color: yellow;
   background-color: blue;
-  border-top: 2px solid yellow;}
-
-#video{
+  border-top: 2px solid yellow; 
+}
+ 
+#video {
   position: center;
   padding: 20px;
   margin: auto;
@@ -75,4 +91,5 @@ ul {
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
+  opacity: 1;
 }
