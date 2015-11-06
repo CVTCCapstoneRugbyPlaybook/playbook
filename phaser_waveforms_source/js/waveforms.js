@@ -131,7 +131,7 @@ WaveForms.prototype = {
 
     create: function () {
 
-        this.add.sprite(0, 0, 'icons', 'grid');
+        this.add.sprite(0, 0, 'icons', 'rugbyField');
 
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();

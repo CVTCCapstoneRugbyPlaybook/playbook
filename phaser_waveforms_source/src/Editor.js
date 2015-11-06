@@ -69,12 +69,14 @@ var WaveForms = function (game) {
             'type': WaveForms.LINEAR,
             'closed': false,
             'x': [ 0, 128, 256, 384, 512, 640 ],
-            'y': [ 240, 240, 240, 240, 240, 240 ]
+            'y': [ 240, 240, 240, 240, 240, 240 ],
+            
         }
     ];
 
     //  Current path data
     this.path = [];
+    this.oldPath = [];
 
     this.currentPath = null;
 
@@ -123,15 +125,15 @@ WaveForms.prototype = {
 
         this.load.atlas('icons', 'assets/waveforms.png', 'assets/waveforms.json');
         this.load.bitmapFont('font', 'assets/font.png', 'assets/font.xml');
-        this.load.image('ship', 'assets/ship.png');
-
+        this.load.image('jersey', 'assets/EauClaireJersey.png');
+        this.load.image('rugbyBall', 'assets/rugbyBall2.png');
         //  Icons from CrackArt ST by Jan Borchers and Detlef Ruttger
 
     },
 
     create: function () {
 
-        this.add.sprite(0, 0, 'icons', 'grid');
+        this.add.sprite(0, 0, 'icons', 'rugbyPlay');
 
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
@@ -167,17 +169,17 @@ WaveForms.prototype = {
 
         this.icons.y = 600;
 
-        this.phaserIcon = this.add.sprite(768, 536, 'icons', 'phaser');
-        this.phaserIcon.inputEnabled = true;
-        this.phaserIcon.events.onInputOver.add(function(sprite) {
-            sprite.tint = 0xffff00;
-        });
-        this.phaserIcon.events.onInputOut.add(function(sprite) {
-            sprite.tint = 0xffffff;
-        });
-        this.phaserIcon.events.onInputDown.add(function() {
-            window.location.href = "http://phaser.io/waveforms";
-        });
+       // this.phaserIcon = this.add.sprite(768, 536, 'icons', 'phaser');
+       // this.phaserIcon.inputEnabled = true;
+       // this.phaserIcon.events.onInputOver.add(function(sprite) {
+       //     sprite.tint = 0xffff00;
+       // });
+        //this.phaserIcon.events.onInputOut.add(function(sprite) {
+        //    sprite.tint = 0xffffff;
+        //});
+        //this.phaserIcon.events.onInputDown.add(function() {
+        //    window.location.href = "http://phaser.io/waveforms";
+        //});
 
         //  Create the path drag handles
         this.handles = this.add.group();
@@ -187,10 +189,15 @@ WaveForms.prototype = {
             this.handles.add(new Handle(this));
         }
 
-        //  The test sprite
-        this.sprite = this.add.sprite(0, 0, 'ship');
-        this.sprite.anchor.set(0.5);
+        //  Set the sprite
+        this.sprite = this.add.sprite(0, 0, 'jersey');
+        this.sprite.scale.setTo(0.05, 0.05);
+        this.sprite.anchor.set(0.5, 0,5);
         this.sprite.visible = false;
+        
+        this.spriteRugbyBall = this.add.sprite(50, 50, 'rugbyBall');
+        this.spriteRugbyBall.scale.setTo(0.2, 0.2);
+        this.spriteRugbyBall.anchor.set(0.5);
 
         //  Set Linear
         this.currentMode = this.linearTool;
@@ -198,7 +205,7 @@ WaveForms.prototype = {
 
         //  Set Path 1
         this.currentPath.select();
-
+        //this.path8.select();
         //  Help text
         this.coords = this.add.bitmapText(744, 6, 'font', "X: 0\nY: 0", 16);
         this.hint = this.add.bitmapText(4, 6, 'font', " ", 16);
@@ -215,14 +222,14 @@ WaveForms.prototype = {
 
         this.intro = this.add.group();
 
-        var fade = this.add.bitmapData(800, 600);
-        fade.rect(0, 0, 800, 600, 'rgba(0,0,0,0.4)');
+        //var fade = this.add.bitmapData(800, 600);
+        //fade.rect(0, 0, 800, 600, 'rgba(0,0,0,0.4)');
 
-        var fadeContainer = this.intro.create(0, 0, fade);
+        //var fadeContainer = this.intro.create(0, 0, fade);
 
-        var logo = this.intro.create(100, 200, 'icons', 'logo')
+        //var logo = this.intro.create(100, 200, 'icons', 'logo')
 
-        var str = "- Phaser WaveForms -\n\nBy Richard Davey, Photon Storm 2015\n\nhttp://phaser.io/waveforms/";
+        var str = "Create your own rugby plays\n\n Tap to start editing";
 
         var credits = this.add.bitmapText(0, 280, 'font', str, 16);
         credits.align = "center";
@@ -549,9 +556,12 @@ WaveForms.prototype = {
     changePath: function (tool) {
 
         //  Hide all the current handles first
+        // Look in here to save the current Path Keep its value, and draw it in the next view
         this.handles.callAll('hide');
 
         this.draggedHandle = null;
+        
+       // this.oldPath = this.currentPath.select();
 
         this.currentMode.deselect();
         this.currentPath.deselect();
@@ -615,7 +625,7 @@ WaveForms.prototype = {
     save: function () {
 
         this.setHint('Check the console');
-        // console.log(JSON.stringify(this.points[this.currentPath.pathIndex]));
+       // console.log(JSON.stringify(this.points[this.currentPath.pathIndex]));
         console.log(JSON.stringify(this.points));
 
     },
@@ -655,6 +665,8 @@ WaveForms.prototype = {
 
         //  100 points per path segment
         var dx = 1 / (x.length * 100);
+        
+        this.oldPath = this.path;
 
         this.path = [];
 
@@ -671,6 +683,7 @@ WaveForms.prototype = {
             }
 
             this.path.push(node);
+            this.oldPath.push(node);
 
             ix++;
 
@@ -692,7 +705,8 @@ WaveForms.prototype = {
 
             this.sprite.x = this.offset.x + this.path[this.bi].x;
             this.sprite.y = this.offset.y + this.path[this.bi].y;
-            this.sprite.rotation = this.path[this.bi].angle;
+            // Rotate the sprite along the path +360 55
+            this.sprite.rotation = this.path[this.bi].angle + 165;
         }
 
     }
