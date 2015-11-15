@@ -8,7 +8,13 @@
 	outline-style: none;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body { 
+    margin-bottom: 60px;
     padding-top: 50px;
 }
 
@@ -17,12 +23,26 @@ body {
   text-align: center;
 }
 
-#video{
-    position: center;
-}
-
 #videofrm {
     box-shadow: 3px 3px 7px grey;
+}
+
+#containingBlock {
+  width:50%;
+}
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.videoWrapper object,
+.videoWrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .blast {
@@ -52,10 +72,6 @@ body {
     background-color: #6D9125;
 }
 
-#active {
-    color: orange;
-}
-
 #navbar li a{
     position: relative;
     color: white;
@@ -66,6 +82,21 @@ body {
     background-color: black;
 }
 
-#footer {
+.container .text-muted {
+    margin: 20px 0;
+    color: #FFFFFF;
+}
+
+footer {
+    color: #FFFFFF;
     text-align: center;
+}
+
+.footer {
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #6D9125;
 }
