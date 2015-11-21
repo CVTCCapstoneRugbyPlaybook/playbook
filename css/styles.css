@@ -119,14 +119,20 @@ footer {
     background-color: #000;
 }
 
-.inputField {
-    width: 20%;
-}
+
 
 #signupButton {
     width: 25%;
     background-color: #6D9125;
     
 }
+
+#signInButton{
+    width: 25%;
+    background-color: #6D9125;
+}
+
+
+
 
 

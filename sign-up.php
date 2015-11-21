@@ -68,7 +68,7 @@ if(isset($_POST['btn-signup']))
         <link rel="icon" href="../../favicon.ico">
         <link href="css/styles.css" rel="stylesheet">
 
-        <title>Plays</title>
+        <title>Sign Up!</title>
 
         <!-- Bootstrap core CSS -->
 
@@ -101,8 +101,8 @@ if(isset($_POST['btn-signup']))
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="rules.html">Rules</a></li>
-            <li id="active" class="active"><a href="plays.html">Plays</a></li>
-            <li><a href="createPlay.html">Create Play</a></li>
+            <li><a href="plays.html">Plays</a></li>
+            <li class="active><a href="createPlay.html">Create Play</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
