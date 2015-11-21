@@ -118,3 +118,15 @@ footer {
     height: 60px;
     background-color: #000;
 }
+
+.inputField {
+    width: 20%;
+}
+
+#signupButton {
+    width: 25%;
+    background-color: #6D9125;
+    
+}
+
+
