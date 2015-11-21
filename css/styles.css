@@ -17,7 +17,7 @@ body {
     margin-bottom: 60px;
     padding-bottom: 50px;
     padding-top: 50px;
-    background-image: url("/playbook/images/stripe.png");
+    background-image: url("../images/stripe.png");
 }
 
 .about {
@@ -130,6 +130,11 @@ footer {
 #signInButton{
     width: 25%;
     background-color: #6D9125;
+}
+
+.form-container{
+    padding: 5%;
+    background-color: white;
 }
 
 

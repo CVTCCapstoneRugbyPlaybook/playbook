@@ -102,7 +102,7 @@ if(isset($_POST['btn-signup']))
             <li><a href="about.html">About</a></li>
             <li><a href="rules.html">Rules</a></li>
             <li><a href="plays.html">Plays</a></li>
-            <li class="active><a href="createPlay.html">Create Play</a></li>
+            <li class="active"><a href="createPlay.html">Create Play</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -132,6 +132,7 @@ if(isset($_POST['btn-signup']))
                  <?php
             }
             ?>
+            
             <div class="form-group">
             <input type="text" class="form-control" name="txt_uname" placeholder="Enter Username" value="<?php if(isset($error)){echo $uname;}?>" />
             </div>
