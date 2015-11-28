@@ -57,16 +57,6 @@ body {
   width:50%;
 }
 
-.blast {
-    display: inline-block;
-    color: white;
-    opacity: 0;
-}
-
-.blast:nth-child(odd) {
-    color: white;
-}
-
 #logo{
     font-family: "Impact", "Charcoal", "sans-serif";
     font-size: 30px;
