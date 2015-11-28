@@ -38,19 +38,27 @@ body {
 }
 
 .video-container {
-	position:relative;
-	padding-bottom:56.25%;
-	padding-top:30px;
-	height:0;
-	overflow:hidden;
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
 }
 
 .video-container iframe, .video-container object, .video-container embed {
-	position:absolute;
-	left:0;
-	top:0;
-	height:100%;
-	width:100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.youtubevideowrap {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    max-height: 640px;
+    box-shadow: 3px 3px 7px grey;
 }
 
 #containingBlock {
