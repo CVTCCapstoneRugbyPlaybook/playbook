@@ -101,7 +101,7 @@ body {
 }
 
 .container .text-muted {
-    color: #fff;
+    color: #ffffff;
     margin: 20px 0;
 }
 
@@ -146,4 +146,9 @@ footer {
 .ballIMG {
     height: 150px;
     padding-right: 10px;
+}
+
+#Stage {
+    position: relative;
+    box-shadow: 3px 3px 7px black;
 }
