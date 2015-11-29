@@ -142,6 +142,15 @@ footer {
     background-color: white;
 }
 
+#scoreImg {
+    height: 25%;
+    width: 55%;
+}
+
+#tackleImg {
+    height: 55%;
+    width: 55%;
+}
 
 
 
