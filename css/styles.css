@@ -26,7 +26,7 @@ body {
 }
 
 .starter-template {
-    background-color: #fff;
+    background-color: #FFFFFF;
     padding: 40px 15px;
     text-align: center;
     box-shadow: 2px -2px 2px #000,
@@ -70,7 +70,7 @@ body {
     font-family: "Impact", "Charcoal", "sans-serif";
     font-size: 30px;
     letter-spacing: 1px;
-    text-shadow: 2px 1px 1px black;
+    text-shadow: 2px 1px 1px #000000;
     vertical-align: middle;
 }
 
@@ -90,28 +90,28 @@ body {
     background-color: #6D9125;
 }
 
-#navbar li a{
-    color: white;
+#navbar li a {
+    color: #FFFFFF;
     position: relative;
 }
   
-#navbar li a:hover{
-    color: white;
-    background-color: black;
+#navbar li a:hover {
+    color: #FFFFFF;
+    background-color: #000000;
 }
 
 .container .text-muted {
-    color: #ffffff;
+    color: #FFFFFF;
     margin: 20px 0;
 }
 
 footer {
-    color: #fff;
+    color: #FFFFFF;
     text-align: center;
 }
 
 .footer {
-    color: #fff;
+    color: #FFFFFF;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -148,7 +148,7 @@ footer {
     padding-right: 10px;
 }
 
-#Stage {
-    position: relative;
-    box-shadow: 3px 3px 7px black;
+#button {
+    background-color: #6D9125;
+    border-color: #6D9125;
 }
