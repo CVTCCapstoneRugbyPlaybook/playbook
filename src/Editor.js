@@ -842,6 +842,7 @@ WaveForms.prototype = {
             if (this.bi >= this.path.length)
             {
                 this.bi = 0;
+                this.sprite.visible = false;
             }
 
             this.sprite.x = this.offset.x + this.path[this.bi].x;
@@ -857,6 +858,7 @@ WaveForms.prototype = {
             if (biPath1 >= path1.length)
             {
                 biPath1 = 0;
+                spriteRugbyBall.visible = false;
             }
 
             spriteRugbyBall.x = this.offset.x + path1[biPath1].x;
@@ -872,6 +874,7 @@ WaveForms.prototype = {
             if (biPath2 >= path2.length)
             {
                 biPath2 = 0;
+                jersey1.visible = false;
             }
 
             jersey1.x = this.offset.x + path2[biPath2].x;
@@ -887,6 +890,7 @@ WaveForms.prototype = {
             if (biPath3 >= path3.length)
             {
                 biPath3 = 0;
+                jersey2.visible = false;
             }
 
             jersey2.x = this.offset.x + path3[biPath3].x;
@@ -902,6 +906,7 @@ WaveForms.prototype = {
             if (biPath4 >= path4.length)
             {
                 biPath4 = 0;
+                jersey3.visible = false;
             }
 
             jersey3.x = this.offset.x + path4[biPath4].x;
@@ -917,6 +922,8 @@ WaveForms.prototype = {
             if (biPath5 >= path5.length)
             {
                 biPath5 = 0;
+                // here to stop the animation after one time, press play to play again
+                jersey4.visible = false;
             }
 
             jersey4.x = this.offset.x + path5[biPath5].x;
