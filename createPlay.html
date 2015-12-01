@@ -9,6 +9,11 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <link href="css/styles.css" rel="stylesheet">
+        
+        <script src="js/phaser.js"></script>
+        <script src="src/Editor.js"></script>
+        <script src="src/Icon.js"></script>
+        <script src="src/Handle.js"></script>
 
         <title>Create Play</title>
 
@@ -54,6 +59,15 @@
       <div class="starter-template">
         <h1>Create a play</h1>
         <p class="lead">Create you own plays.</p>
+        <div id="game"></div>
+
+    <script type="text/javascript">
+
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');// just changed from CANVAS To AUTO
+
+    game.state.add('Game', WaveForms, true);
+
+    </script>
       </div><!--/.start-template -->
 
     </div><!-- /.container -->
