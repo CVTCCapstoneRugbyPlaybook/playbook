@@ -9,11 +9,18 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <link href="css/styles.css" rel="stylesheet">
+        
+        <script src="js/phaser.js"></script>
+        <script src="src/Editor.js"></script>
+        <script src="src/Icon.js"></script>
+        <script src="src/Handle.js"></script>
 
         <title>Create Play</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="../playbook/bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <script src="bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
 
         <script src="../playbook/bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
 
@@ -41,7 +48,7 @@
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="rules.html">Rules</a></li>
+            <li><a href="Laws.html">Laws</a></li>
             <li><a href="plays.html">Plays</a></li>
             <li id="active" class="active"><a href="createPlay.html">Create Play</a></li>
           </ul>
@@ -53,10 +60,14 @@
 
       <div class="starter-template">
         <h1>Create a play</h1>
-        <p class="lead">Create you own plays.</p>
-      </div><!--/.start-template -->
 
-    </div><!-- /.container -->
+        <p class="lead">Login to create you own plays.</p><br>
+        
+        <p><a class="btn btn-lg btn-success" id="button" href="login.php" role="button">Login</a></p>
+        
+        </div><!--/.start-template -->
+        
+        </div><!-- /.container -->
     
     <footer class="footer">
       <div class="container">
