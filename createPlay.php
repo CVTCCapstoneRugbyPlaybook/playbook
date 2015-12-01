@@ -27,6 +27,11 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
         <link href="bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <script src="bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
+        
+        <script src="js/phaser.js"></script>
+        <script src="src/Editor.js"></script>
+        <script src="src/Icon.js"></script>
+        <script src="src/Handle.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -64,17 +69,20 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     <div class="container">
 
       <div class="starter-template">
-        <h1>Create a play</h1>
         <p class="lead">Create you own plays.</p>
+         <div id="game">
+          <script type="text/javascript">
+          var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');// just changed from CANVAS To AUTO
+          game.state.add('Game', WaveForms, true);</script>
+        </div>
       </div><!--/.start-template -->
-
-    </div><!-- /.container -->
+      </div><!-- /.container -->
     
-    <div id="footer">
-        <footer>
-            <p>&copy; 2015 Clément Siess, Ian Reineck, Steven Shneider. All rights reserved.</p>
-        </footer>
-    </div>
+     <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2015 Clément Siess, Ian Reineck, Steven Shneider. All rights reserved.</p>
+      </div>
+    </footer>
     
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/0.11.6/jquery.velocity.min.js'></script>
@@ -86,9 +94,9 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../playbook/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../playbook/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
     
 </body>
 </html>
