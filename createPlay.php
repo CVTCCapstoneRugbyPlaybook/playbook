@@ -52,7 +52,7 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="rules.html">Laws</a></li>
+            <li><a href="Laws.html">Laws</a></li>
             <li><a href="plays.html">Plays</a></li>
             <li id="active" class="active"><a href="createPlay.html">Create Play</a></li>
             <li><a href="logout.php?logout=true">logout</a></li>

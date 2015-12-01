@@ -100,7 +100,7 @@ if(isset($_POST['btn-signup']))
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="rules.html">Laws</a></li>
+            <li><a href="Laws.html">Laws</a></li>
             <li><a href="plays.html">Plays</a></li>
             <li class="active"><a href="createPlay.html">Create Play</a></li>
           </ul>

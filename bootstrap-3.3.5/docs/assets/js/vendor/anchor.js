@@ -186,10 +186,10 @@ function AnchorJS(options) {
       document.head.insertBefore(style, firstStyleEl);
     }
 
-    style.sheet.insertRule(linkRule, style.sheet.cssRules.length);
-    style.sheet.insertRule(hoverRule, style.sheet.cssRules.length);
-    style.sheet.insertRule(pseudoElContent, style.sheet.cssRules.length);
-    style.sheet.insertRule(anchorjsLinkFontFace, style.sheet.cssRules.length);
+    style.sheet.insertRule(linkRule, style.sheet.cssLaws.length);
+    style.sheet.insertRule(hoverRule, style.sheet.cssLaws.length);
+    style.sheet.insertRule(pseudoElContent, style.sheet.cssLaws.length);
+    style.sheet.insertRule(anchorjsLinkFontFace, style.sheet.cssLaws.length);
   };
 }
 
