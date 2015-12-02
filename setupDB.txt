@@ -1,0 +1,2 @@
+Restore backup to mysql using a database named dblogin, if you use a different database name than dblogin you need to update dbconfig.php
+you can use username ianreineck@gmail.com pw: password to login after you restore the database. 
