@@ -100,7 +100,7 @@ Handle.prototype.dragStart = function () {
 
     this.editor.draggedHandle = this;
 
-    this.editor.setHint('Dragging node ' + this.index);
+    this.editor.setHint('Dragging point ' + this.index);
 
 };
 
