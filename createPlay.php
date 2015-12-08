@@ -69,7 +69,7 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     <div class="container">
 
       <div class="starter-template">
-        <p class="lead">Create you own plays.</p>
+        <p class="lead">Create your own plays.</p>
          <div id="game">
           <script type="text/javascript">
           var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');// just changed from CANVAS To AUTO

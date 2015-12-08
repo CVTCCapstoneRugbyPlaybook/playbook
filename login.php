@@ -18,7 +18,7 @@ if(isset($_POST['btn-login']))
  }
  else
  {
-  $error = "Wrong Details !";
+  $error = "The login information provided does not match our records. Please try again!";
  } 
 }
 ?>
