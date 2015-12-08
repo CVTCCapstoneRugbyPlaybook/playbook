@@ -1,11 +1,5 @@
 var WaveForms = function (game) {
     
-    // game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    
-    // game.scale.refresh();
-    
-    // game.scale.pageAlignHorizontally = true;
-    // game.scale.pageAlignVertically = true;
     var credits;
     var str = '';
     var spriteRugbyBall;
@@ -26,7 +20,7 @@ var WaveForms = function (game) {
     var biPath5 = 0;
     var points;
     var intro;
-    //var dx = 1 / (x.length * 100);
+    
     this.bmd = null;
     this.icons = null;
 
@@ -40,15 +34,11 @@ var WaveForms = function (game) {
     this.offset = new Phaser.Point(80, 40);
 
     //  Pre-defined paths
-    //var points = localStorage['points'] ? JSON.parse(localStorage['points']) : [];
-    
     if (localStorage['points'] !== null && localStorage['points'] !== undefined) {
         this.points = localStorage['points'] ? JSON.parse(localStorage['points']) : [];
     }else {
         
-    //}
-    this.points = //localStorage['points'] ? JSON.parse(localStorage['points']) : [];
-    [
+    this.points = [
         null,
         {
             //  Path 1
@@ -92,47 +82,22 @@ var WaveForms = function (game) {
             'x': [ 300, 328, 356, 384, 412, 440 ],
             'y': [ 240, 240, 240, 240, 240, 240 ]
         }
-        // },
-        // {
-        //     //  Path 7
-        //     'type': WaveForms.CATMULL,
-        //     'closed': false,
-        //     'x': [ 400, 428, 456, 484, 472, 540 ],
-        //     'y': [ 240, 240, 240, 240, 240, 240 ]
-        // },
-        // {
-        //     //  Path 8
-        //     'type': WaveForms.CATMULL,
-        //     'closed': false,
-        //     'x': [ 550, 538, 526, 484, 460, 460 ],
-        //     'y': [ 240, 240, 240, 240, 240, 240 ],
-            
-        // }
+
     ]; 
         
     }
 
     //  Current path data
     this.path = [];
-
     this.currentPath = null;
-    
     this.enableSnap = false;
     this.editMode = false;
     this.closePath = false;
-
-    // this.linearTool = null;
-    // this.bezierTool = null;
     this.catmullTool = null;
-    //this.closeTool = null;
     this.editTool = null;
-    //this.snapTool = null;
-
     this.currentMode = null;
-
     this.coords = null;
     this.hint = null;
-
     this.sprite;
     this.bi = 0;
 
@@ -161,12 +126,14 @@ WaveForms.prototype = {
 
     preload: function () {
         
+        // See Here if there is a problem
+        
     //     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     
     //   //game.scale.refresh();
     
-        game.scale.pageAlignHorizontally = true;
-        game.scale.pageAlignVertically = true;
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
         
         this.load.atlas('icons', 'assets/waveforms.png', 'assets/waveforms.json');
         this.load.bitmapFont('font', 'assets/font.png', 'assets/font.xml');
@@ -198,27 +165,19 @@ WaveForms.prototype = {
           this.setPath(4);
           this.setPath(5);
           this.setPath(6);
-        // this.random(7);
-        // this.random(8);
         }
 
         //  Create the icons
         this.icons = this.add.group();
 
-       // this.linearTool =   this.icons.add(new Icon(this,   WaveForms.LINEAR,     0,      'linear',   Phaser.Keyboard.L, false));
-       // this.bezierTool =   this.icons.add(new Icon(this,   WaveForms.BEZIER,     64,     'bezier',   Phaser.Keyboard.B, false));
         this.catmullTool =  this.icons.add(new Icon(this,   WaveForms.CATMULL,    177,    'catmull',  Phaser.Keyboard.M, false));
-        //this.closeTool =    this.icons.add(new Icon(this,   WaveForms.CLOSEPATH,  192,    'close',    Phaser.Keyboard.C, true));
         this.editTool =     this.icons.add(new Icon(this,   WaveForms.EDIT,       241,    'edit',     Phaser.Keyboard.E, true));
-        //this.snapTool =     this.icons.add(new Icon(this,   WaveForms.SNAP,       320,    'snap',     Phaser.Keyboard.S, true));
         this.currentPath  = this.icons.add(new Icon(this,   WaveForms.PATH,       369,    'path1',    Phaser.Keyboard.ONE, false));
                             this.icons.add(new Icon(this,   WaveForms.PATH,       401,    'path2',    Phaser.Keyboard.TWO, false));
                             this.icons.add(new Icon(this,   WaveForms.PATH,       433,    'path3',    Phaser.Keyboard.THREE, false));
                             this.icons.add(new Icon(this,   WaveForms.PATH,       465,    'path4',    Phaser.Keyboard.FOUR, false));
                             this.icons.add(new Icon(this,   WaveForms.PATH,       497,    'path5',    Phaser.Keyboard.FIVE, false));
                             this.icons.add(new Icon(this,   WaveForms.PATH,       529,    'path6',    Phaser.Keyboard.SIX, false));
-                            // this.icons.add(new Icon(this,   WaveForms.PATH,       576,    'path7',    Phaser.Keyboard.SEVEN, false));
-                            // this.icons.add(new Icon(this,   WaveForms.PATH,       608,    'path8',    Phaser.Keyboard.EIGHT, false));
                             this.icons.add(new Icon(this,   WaveForms.SPRITE,     305,    'sprite',   Phaser.Keyboard.SPACEBAR, true));
                             this.icons.add(new Icon(this,   WaveForms.SAVE,       561,    'save',     Phaser.Keyboard.V, false));
 
@@ -239,30 +198,30 @@ WaveForms.prototype = {
         this.sprite.anchor.set(0.5, 0.5);
         this.sprite.visible = false;
         
-        jersey1 = this.add.sprite(0, 0, 'jersey1');
-        jersey1.scale.setTo(0.05, 0.05);
-        jersey1.anchor.set(0.5, 0.5);
-        jersey1.visible = false;
+        window.jersey1 = this.add.sprite(0, 0, 'jersey1');
+        window.jersey1.scale.setTo(0.05, 0.05);
+        window.jersey1.anchor.set(0.5, 0.5);
+        window.jersey1.visible = false;
         
-        jersey2 = this.add.sprite(0, 0, 'jersey2');
-        jersey2.scale.setTo(0.05, 0.05);
-        jersey2.anchor.set(0.5, 0.5);
-        jersey2.visible = false;
+        window.jersey2 = this.add.sprite(0, 0, 'jersey2');
+        window.jersey2.scale.setTo(0.05, 0.05);
+        window.jersey2.anchor.set(0.5, 0.5);
+        window.jersey2.visible = false;
         
-        jersey3 = this.add.sprite(0, 0, 'jersey3');
-        jersey3.scale.setTo(0.05, 0.05);
-        jersey3.anchor.set(0.5, 0.5);
-        jersey3.visible = false;
+        window.jersey3 = this.add.sprite(0, 0, 'jersey3');
+        window.jersey3.scale.setTo(0.05, 0.05);
+        window.jersey3.anchor.set(0.5, 0.5);
+        window.jersey3.visible = false;
         
-        jersey4 = this.add.sprite(0, 0, 'jersey4');
-        jersey4.scale.setTo(0.05, 0.05);
-        jersey4.anchor.set(0.5, 0.5);
-        jersey4.visible = false;
+        window.jersey4 = this.add.sprite(0, 0, 'jersey4');
+        window.jersey4.scale.setTo(0.05, 0.05);
+        window.jersey4.anchor.set(0.5, 0.5);
+        window.jersey4.visible = false;
         
-        spriteRugbyBall = this.add.sprite(50, 50, 'rugbyBall');
-        spriteRugbyBall.scale.setTo(0.2, 0.2);
-        spriteRugbyBall.anchor.set(0.5);
-        spriteRugbyBall.visible = false;
+        window.spriteRugbyBall = this.add.sprite(50, 50, 'rugbyBall');
+        window.spriteRugbyBall.scale.setTo(0.2, 0.2);
+        window.spriteRugbyBall.anchor.set(0.5);
+        window.spriteRugbyBall.visible = false;
 
         //  Set Catmull
         this.currentMode = this.catmullTool;
@@ -272,7 +231,8 @@ WaveForms.prototype = {
         this.currentPath.select();
         //  Help text
         this.coords = this.add.bitmapText(744, 6, 'font', "X: 0\nY: 0", 16);
-        this.hint = this.add.bitmapText(4, 6, 'font', " ", 16);
+
+        this.hint = this.add.text(this.game.world.centerX,this.game.world.centerY, ' ', { font: '16px Arial', fill: '#fff' });
 
         //  Other keyboard shortcuts
         var randKey = this.input.keyboard.addKey(Phaser.Keyboard.R);
@@ -314,9 +274,8 @@ WaveForms.prototype = {
     setPath: function (p) {
 
         var py = this.points[p].y;
-        var px = this.points[p].x;
 
-        for (var i = 0; i < py.length; i++)
+        for (var i = 0; i < py.length; i++) 
         {
             py[i] =  (450 + (-72 * i));//this.rnd.between(32, 432);
 
@@ -332,11 +291,11 @@ WaveForms.prototype = {
             {
                 if (this.editMode)
                 {
-                    this.hint.text = "Click to add a node\nSelect existing node to delete it";
+                    this.hint.text = "Click to add a point\nSelect existing point to delete it";
                 }
                 else
                 {
-                    this.hint.text = "Drag a node";
+                    this.hint.text = "Drag a point";
                 }
             }
             else
@@ -348,43 +307,28 @@ WaveForms.prototype = {
         {
             switch (str)
             {
-                // case WaveForms.LINEAR:
-                //     this.hint.text = "Set path type to Linear";
-                //     break;
-
-                // case WaveForms.BEZIER:
-                //     this.hint.text = "Set path type to Bezier";
-                //     break;
 
                 case WaveForms.CATMULL:
-                    this.hint.text = "Set path type to Catmull Rom";
+                    this.hint.text = "Create Your Own Play";
                     break;
-
-                // case WaveForms.CLOSEPATH:
-                //     this.hint.text = "Toggle path closed or open ended";
-                //     break;
 
                 case WaveForms.EDIT:
                     if (!this.editMode)
                     {
-                        this.hint.text = "Toggle Edit Mode";
+                        this.hint.text = "Edit Path";
                     }
                     break;
-
-                // case WaveForms.SNAP:
-                //     this.hint.text = "Toggle Snap to Grid";
-                //     break;
 
                 case WaveForms.PATH:
                     this.hint.text = "Change Path";
                     break;
 
                 case WaveForms.SPRITE:
-                    this.hint.text = "Toggle Sprite on Path";
+                    this.hint.text = "Play Animation";
                     break;
 
                 case WaveForms.SAVE:
-                    this.hint.text = "Save Path data to console.log";
+                    this.hint.text = "Save The Play";
                     break;
             }
 
@@ -396,29 +340,13 @@ WaveForms.prototype = {
 
         switch (tool.type)
         {
-            // case WaveForms.LINEAR:
-            //     this.setLinear(tool);
-            //     break;
-
-            // case WaveForms.BEZIER:
-            //     this.setBezier(tool);
-            //     break;
-
             case WaveForms.CATMULL:
                 this.setCatmull(tool);
                 break;
 
-            // case WaveForms.CLOSEPATH:
-            //     this.toggleClose(tool);
-            //     break;
-
             case WaveForms.EDIT:
                 this.toggleEdit(tool);
                 break;
-
-            // case WaveForms.SNAP:
-            //     this.toggleSnap(tool);
-            //     break;
 
             case WaveForms.PATH:
                 this.changePath(tool);
@@ -436,34 +364,6 @@ WaveForms.prototype = {
 
     },
 
-    // setLinear: function (tool) {
-
-    //     this.currentMode.deselect();
-    //     this.currentMode = tool;
-    //     this.currentMode.select();
-        
-    //     this.points[this.currentPath.pathIndex].type = WaveForms.CATMULL;
-    
-
-    //     this.interpolation = Phaser.Math.catmullRomInterpolation;
-    //     this.plot(true);
-
-    // },
-
-    // setBezier: function (tool) {
-
-    //     this.currentMode.deselect();
-    //     this.currentMode = tool;
-    //     this.currentMode.select();
-
-
-    //     this.points[this.currentPath.pathIndex].type = WaveForms.CATMULL;
-
-    //     this.interpolation = Phaser.Math.catmullRomInterpolation;
-    //     this.plot(true);
-
-    // },
-
     setCatmull: function (tool) {
 
         this.currentMode.deselect();
@@ -477,57 +377,17 @@ WaveForms.prototype = {
 
     },
 
-    // toggleClose: function (tool) {
-        
-
-    //     var x = this.points[this.currentPath.pathIndex].x;
-    //     var y = this.points[this.currentPath.pathIndex].y;
-        
-
-
-    //     if (this.closePath)
-    //     {
-    //         //  Remove the final points
-    //         x.pop();
-    //         y.pop();
-    //     }
-    //     else
-    //     {
-    //         //  Add the final points
-    //         x.push(x[0]);
-    //         y.push(y[0]);
-    //     }
-
-    //     this.closePath = (this.closePath) ? false : true;
-        
-        
-    //     this.points[this.currentPath.pathIndex].closed = this.closePath;
-        
-
-    //     if (this.closePath)
-    //     {
-    //         tool.select();
-    //     }
-    //     else
-    //     {
-    //         tool.deselect();
-    //     }
-
-    //     this.plot(true);
-
-    // },
-
     toggleEdit: function () {
 
         this.editMode = (this.editMode) ? false : true;
 
         if (this.editMode)
         {
-            this.hint.text = "Click to add a node\nSelect existing node to delete it";
+            this.hint.text = "Click to add a point\nSelect existing point to delete it";
         }
         else
         {
-            this.hint.text = "Drag a node";
+            this.hint.text = "Drag a point";
         }
 
     },
@@ -581,7 +441,7 @@ WaveForms.prototype = {
             this.points[this.currentPath.pathIndex].x = x;
             this.points[this.currentPath.pathIndex].y = y;
 
-            this.hint.text = "Node deleted\nClick to add a new node\nSelect existing node to delete it";
+            this.hint.text = "Point deleted\nClick to add a new point\nSelect existing point to delete it";
         }
         else
         {
@@ -607,20 +467,12 @@ WaveForms.prototype = {
                 y.push(y[0]);
             }
 
-            this.hint.text = "Node created\nClick to add another node\nSelect existing node to delete it";
+            this.hint.text = "Point created\nClick to add another point\nSelect existing point to delete it";
         }
             
         this.plot(true);
 
     },
-
-    // toggleSnap: function () {
-
-    //     this.enableSnap = (this.enableSnap) ? false : true;
-
-    //     this.handles.callAll('updateSnap');
-
-    // },
 
     changePath: function (tool) {
 
@@ -647,28 +499,8 @@ WaveForms.prototype = {
             handle.show(i, this.points[idx].x[i], this.points[idx].y[i]);
         }
 
-        //  Closed path?
-        // if (this.points[idx].closed)
-        // {
-        //     this.closePath = true;
-        //     this.closeTool.select();
-        // }
-        // else
-        // {
-        //     this.closePath = false;
-        //     this.closeTool.deselect();
-        // }
-
         switch (this.points[idx].type)
         {
-            // case WaveForms.LINEAR:
-            //     this.setLinear(this.catmullTool);
-            //     break;
-
-            // case WaveForms.BEZIER:
-            //     this.setBezier(this.catmullTool);
-            //     break;
-
             case WaveForms.CATMULL:
                 this.setCatmull(this.catmullTool);
                 break;
@@ -681,42 +513,35 @@ WaveForms.prototype = {
         if (this.sprite.visible)
         {
             this.sprite.visible = false;
-            spriteRugbyBall.visible = false;
-            jersey1.visible = false;
-            jersey2.visible = false;
-            jersey3.visible = false;
-            jersey4.visible = false;
+            window.spriteRugbyBall.visible = false;
+            window.jersey1.visible = false;
+            window.jersey2.visible = false;
+            window.jersey3.visible = false;
+            window.jersey4.visible = false;
         }
         else
         {
             this.bi = 0;
-            biPath1 = 0;
-            biPath2 = 0;
-            biPath3 = 0;
-            biPath4 = 0;
-            biPath5 = 0;
+            window.biPath1 = 0;
+            window.biPath2 = 0;
+            window.biPath3 = 0;
+            window.biPath4 = 0;
+            window.biPath5 = 0;
             this.sprite.visible = true;
-            spriteRugbyBall.visible = true;
-            jersey1.visible = true;
-            jersey2.visible = true;
-            jersey3.visible = true;
-            jersey4.visible = true;
+            window.spriteRugbyBall.visible = true;
+            window.jersey1.visible = true;
+            window.jersey2.visible = true;
+            window.jersey3.visible = true;
+            window.jersey4.visible = true;
         }
 
     },
 
     save: function () {
 
-        this.setHint('Check the console');
-       // console.log(JSON.stringify(this.points[this.currentPath.pathIndex]));
-        console.log(JSON.stringify(this.points));
-        
-         //points.push(this.points);
-    //   localStorage['points'] = JSON.stringify(this.points);
-    //   console.log(localStorage['points']);
-        //var pointsSaved = [];
+        this.setHint('Play saved');
         localStorage['points'] = (JSON.stringify(this.points));
-        console.log('Points' + localStorage['points'] );
+        //console.log('Points' + localStorage['points'] );
     },
 
    plot: function (force, pointer) {
@@ -781,52 +606,54 @@ WaveForms.prototype = {
 				ix++;
 				if (counter == 1) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 255, 255, 1)');
-				path1 = this.path;
-		        this.bi = 0;
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 255, 255, 1)');
+				    window.path1 = this.path;
+		            this.bi = 0;
 		        
-		        biPath1 = this.bi;
+		            window.biPath1 = this.bi;
                 
 				} else if (counter == 2) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 0, 0, 1)');
-				path2 = this.path;
-		        this.bi = 0;
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 0, 0, 1)');
+				    window.path2 = this.path;
+		            this.bi = 0;
 		        
-		        biPath2 = this.bi;
+		            window.biPath2 = this.bi;
 				
 				}else if (counter == 3) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 0, 0, 1)');
-				path3 = this.path;
-		        this.bi = 0;
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 0, 0, 1)');
+				    window.path3 = this.path;
+		            this.bi = 0;
 		        
-		        biPath3 = this.bi;
+		            window.biPath3 = this.bi;
 				
 				}else if (counter == 4) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 0, 255, 1)');
-				path4 = this.path;
-		        this.bi = 0;
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 0, 255, 1)');
+				    window.path4 = this.path;
+		            this.bi = 0;
 		        
-		        biPath4 = this.bi;
+		            window.biPath4 = this.bi;
 		        
 				}else if (counter == 5) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 255, 255, 1)');
-				path5 = this.path;
-		        this.bi = 0;
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 255, 255, 1)');
+				    window.path5 = this.path;
+		            this.bi = 0;
 		        
-		        biPath5 = this.bi;
+		            window.biPath5 = this.bi;
 				
 				}else if (counter == 6) {
 
-				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 255, 0, 1)');
+				    this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(255, 255, 0, 1)');
+				
 				}else{
 
 				this.bmd.rect(this.offset.x + px, this.offset.y + py, 1, 1, 'rgba(0, 255, 0, 1)');
+				
 				}
-				arrayOfPathes = [counter, this.path];
+				window.arrayOfPathes = [counter, this.path];
 			}
 			
 		}
@@ -847,89 +674,82 @@ WaveForms.prototype = {
 
             this.sprite.x = this.offset.x + this.path[this.bi].x;
             this.sprite.y = this.offset.y + this.path[this.bi].y;
-            // Rotate the sprite along the path +360 55
             this.sprite.rotation = this.path[this.bi].angle + 165;
         }
         
-        if (spriteRugbyBall.visible) {
+        if (window.spriteRugbyBall.visible) {
             
-            biPath1 += 2;
+            window.biPath1 += 2;
 
-            if (biPath1 >= path1.length)
+            if (window.biPath1 >= window.path1.length)
             {
-                biPath1 = 0;
-                spriteRugbyBall.visible = false;
+                window.biPath1 = 0;
+                window.spriteRugbyBall.visible = false;
             }
 
-            spriteRugbyBall.x = this.offset.x + path1[biPath1].x;
-            spriteRugbyBall.y = this.offset.y + path1[biPath1].y;
-            // Rotate the sprite along the path +360 55
-            spriteRugbyBall.rotation = path1[biPath1].angle + 22;
+            window.spriteRugbyBall.x = this.offset.x + window.path1[window.biPath1].x;
+            window.spriteRugbyBall.y = this.offset.y + window.path1[window.biPath1].y;
+            window.spriteRugbyBall.rotation = window.path1[window.biPath1].angle + 22;
         }
         
-        if (jersey1.visible) {
+        if (window.jersey1.visible) {
             
-            biPath2 += 2;
+            window.biPath2 += 2;
 
-            if (biPath2 >= path2.length)
+            if (window.biPath2 >= window.path2.length)
             {
-                biPath2 = 0;
-                jersey1.visible = false;
+                window.biPath2 = 0;
+                window.jersey1.visible = false;
             }
 
-            jersey1.x = this.offset.x + path2[biPath2].x;
-            jersey1.y = this.offset.y + path2[biPath2].y;
-            // Rotate the sprite along the path +360 55
-            jersey1.rotation = path2[biPath2].angle + 165;
+            window.jersey1.x = this.offset.x + window.path2[window.biPath2].x;
+            window.jersey1.y = this.offset.y + window.path2[window.biPath2].y;
+            window.jersey1.rotation = window.path2[window.biPath2].angle + 165;
         }
         
-        if (jersey2.visible) {
+        if (window.jersey2.visible) {
             
-            biPath3 += 2;
+            window.biPath3 += 2;
 
-            if (biPath3 >= path3.length)
+            if (window.biPath3 >= window.path3.length)
             {
-                biPath3 = 0;
-                jersey2.visible = false;
+                window.biPath3 = 0;
+                window.jersey2.visible = false;
             }
 
-            jersey2.x = this.offset.x + path3[biPath3].x;
-            jersey2.y = this.offset.y + path3[biPath3].y;
-            // Rotate the sprite along the path +360 55
-            jersey2.rotation = path3[biPath3].angle + 165;
+            window.jersey2.x = this.offset.x + window.path3[window.biPath3].x;
+            window.jersey2.y = this.offset.y + window.path3[window.biPath3].y;
+            window.jersey2.rotation = window.path3[window.biPath3].angle + 165;
         }
         
-        if (jersey3.visible) {
+        if (window.jersey3.visible) {
             
-            biPath4 += 2;
+            window.biPath4 += 2;
 
-            if (biPath4 >= path4.length)
+            if (window.biPath4 >= window.path4.length)
             {
-                biPath4 = 0;
-                jersey3.visible = false;
+                window.biPath4 = 0;
+                window.jersey3.visible = false;
             }
 
-            jersey3.x = this.offset.x + path4[biPath4].x;
-            jersey3.y = this.offset.y + path4[biPath4].y;
-            // Rotate the sprite along the path +360 55
-            jersey3.rotation = path4[biPath4].angle + 165;
+            window.jersey3.x = this.offset.x + window.path4[window.biPath4].x;
+            window.jersey3.y = this.offset.y + window.path4[window.biPath4].y;
+            window.jersey3.rotation = window.path4[window.biPath4].angle + 165;
         }
         
-        if (jersey4.visible) {
+        if (window.jersey4.visible) {
             
-            biPath5 += 2;
+            window.biPath5 += 2;
 
-            if (biPath5 >= path5.length)
+            if (window.biPath5 >= window.path5.length)
             {
-                biPath5 = 0;
-                // here to stop the animation after one time, press play to play again
-                jersey4.visible = false;
+                window.biPath5 = 0;
+                window.jersey4.visible = false;
             }
 
-            jersey4.x = this.offset.x + path5[biPath5].x;
-            jersey4.y = this.offset.y + path5[biPath5].y;
-            // Rotate the sprite along the path +360 55
-            jersey4.rotation = path5[biPath5].angle + 165;
+            window.jersey4.x = this.offset.x + window.path5[window.biPath5].x;
+            window.jersey4.y = this.offset.y + window.path5[window.biPath5].y;
+            window.jersey4.rotation = window.path5[window.biPath5].angle + 165;
         }
     }
     
