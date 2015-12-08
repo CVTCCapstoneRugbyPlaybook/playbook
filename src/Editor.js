@@ -232,7 +232,7 @@ WaveForms.prototype = {
         //  Help text
         this.coords = this.add.bitmapText(744, 6, 'font', "X: 0\nY: 0", 16);
 
-        this.hint = this.add.text(this.game.world.centerX,this.game.world.centerY, ' ', { font: '16px Arial', fill: '#fff' });
+        this.hint = this.add.text(40,10, ' ', { font: '16px Arial', fill: '#fff' });
 
         //  Other keyboard shortcuts
         var randKey = this.input.keyboard.addKey(Phaser.Keyboard.R);
